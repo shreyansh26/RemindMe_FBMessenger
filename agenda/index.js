@@ -9,7 +9,9 @@ const agenda = new Agenda({
   }
 });
 
-const createReminder = require('./createReminder')
+const createReminder = require('./createReminder');
+const showReminders = require('./showReminders');
+
 module.exports = (f) => {
   // Define Agenda jobs
 
@@ -20,5 +22,9 @@ module.exports = (f) => {
   });
   // Create a reminder
   createReminder(agenda, f);
+
+  // Show reminders
+  showReminders(agenda, f);
+  
   return agenda;
 };
