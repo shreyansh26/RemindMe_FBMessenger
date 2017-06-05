@@ -173,6 +173,28 @@ class FBeamer {
 			.catch(error => console.log(error));
 	}
 
+	// A button
+	btn(id, data) {
+		let obj = {
+			recipient: {
+				id
+			},
+			message: {
+				attachment: {
+					type: 'template',
+					payload: {
+						template_type: 'button',
+						text: data.text,
+						buttons: data.buttons
+					}
+				}
+			}
+		}
+
+		this.sendMessage(obj)
+			.catch(error => console.log(error));
+	}
+
 }
 
 module.exports = FBeamer;
