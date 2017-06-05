@@ -8,6 +8,8 @@
   "author": "shreyansh26",
   "license": "ISC",
   "dependencies": {
+    "agenda": "0.8.1",
+    "mongodb": "2.2.19",
     "node-wit": "4.0.0",
     "request": "2.74.0",
     "restify": "4.1.1"

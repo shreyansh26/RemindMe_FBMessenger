@@ -8,6 +8,19 @@ const findById = (fbid, sessionStore) => {
   }
 }
 
+const fetchEntity = (entities, entity) => {
+  //return entities[entity][0].value;
+  const val = entities && entities[entity] && Array.isArray(entities[entity]) &&
+    entities[entity].length>0 && entities[entity][0].value;
+
+    if(!val){
+      return null;
+    } else {
+      return typeof val === 'object' ? val.value : val;
+    }
+}
+
 module.exports = {
-  findById
+  findById,
+  fetchEntity
 };

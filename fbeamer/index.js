@@ -22,8 +22,8 @@ class FBeamer {
 		// and if req.query.hub.verify_token is the same as this.VERIFY_TOKEN
 		// then send back an HTTP status 200 and req.query.hub.challenge
 		let {
-			mode, 
-			verify_token, 
+			mode,
+			verify_token,
 			challenge
 		} = req.query.hub;
 
@@ -46,7 +46,7 @@ class FBeamer {
 					try {
 						if(hash !== signature.split("=")[1]) {
 							throw new Error("Invalid Signature");
-						} 
+						}
 					} catch(e) {
 							res.send(500, e);
 						}
@@ -54,7 +54,7 @@ class FBeamer {
 			} catch(e) {
 				res.send(500, e);
 			}
-		} 
+		}
 
 		return next();
 
@@ -76,6 +76,24 @@ class FBeamer {
 		});
 	}
 
+	getProfile(id) {
+		return new Promise((resolve, reject) => {
+			request({
+				uri: `https://graph.facebook.com/v2.9/${id}`,
+				qs: {
+					access_token: this.PAGE_ACCESS_TOKEN
+				},
+				method: 'GET'
+			}, (error, response, body) => {
+				if(!error & response.statusCode === 200) {
+					resolve(JSON.parse(body));
+				} else {
+					reject(error);
+				}
+			});
+		});
+	}
+
 	incoming(req, res, cb) {
 		// Extract the body of the POST request
 		let data = req.body;
@@ -88,9 +106,9 @@ class FBeamer {
 						sender: msgEvent.sender.id,
 						timeOfMessage: msgEvent.timestamp,
 						message: msgEvent.message || undefined,
-						postback: msgEvent.postback || undefined 
+						postback: msgEvent.postback || undefined
 					}
-					
+
 					cb(messageObj);
 				});
 			});
