@@ -13,6 +13,11 @@ const createReminder = require('./createReminder')
 module.exports = (f) => {
   // Define Agenda jobs
 
+  // Display a reminder
+  agenda.define('reminder', job => {
+    const {fbid, first_name, task} = job.attrs.data;
+    f.txt(fbid, `Hey ${first_name}. Reminding you to ${task}!`);
+  });
   // Create a reminder
   createReminder(agenda, f);
   return agenda;
