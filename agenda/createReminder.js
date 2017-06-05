@@ -18,7 +18,7 @@ module.exports = (agenda, f) => {
           fbid,
           first_name,
           task
-        })
+        });
       })
       .catch(error => console.log(error));
     // Compute offset from UTC to schedule task

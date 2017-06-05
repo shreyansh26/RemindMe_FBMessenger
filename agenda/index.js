@@ -11,6 +11,7 @@ const agenda = new Agenda({
 
 const createReminder = require('./createReminder');
 const showReminders = require('./showReminders');
+const cancelReminder = require('./cancelReminder');
 
 module.exports = (f) => {
   // Define Agenda jobs
@@ -18,13 +19,16 @@ module.exports = (f) => {
   // Display a reminder
   agenda.define('reminder', job => {
     const {fbid, first_name, task} = job.attrs.data;
-    f.txt(fbid, `Hey ${first_name}. Reminding you to ${task}!`);
+    f.txt(fbid, `Hey ${first_name}! Reminding you to ${task}!`);
   });
   // Create a reminder
   createReminder(agenda, f);
 
   // Show reminders
   showReminders(agenda, f);
-  
+
+  // Cancel reminder
+  cancelReminder(agenda, f);
+
   return agenda;
-};
+}

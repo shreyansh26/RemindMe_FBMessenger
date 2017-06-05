@@ -45,6 +45,18 @@ agenda.on('ready', () => {
 				message
 			} = msg;
 
+			if(postback) {
+				const {
+					schedule,
+					fbid,
+				  id
+				} = JSON.parse(postback.payload);
+				agenda.now(schedule, {
+					fbid,
+					id
+				});
+			}
+
 			if(message.text) {
 				// Process the message here
 				let sessionId = session.init(sender);
