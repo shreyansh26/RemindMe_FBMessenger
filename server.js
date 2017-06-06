@@ -45,7 +45,7 @@ agenda.on('ready', () => {
 				message
 			} = msg;
 
-			if(postback) {
+			if(postback && !postback.payload.includes("menu")) {
 				const {
 					schedule,
 					fbid,
@@ -57,12 +57,13 @@ agenda.on('ready', () => {
 				});
 			}
 
-			if(message.text) {
+			if((message && message.text) || (postback.payload.includes("menu"))) {
 				// Process the message here
 				let sessionId = session.init(sender);
 				let {context} = session.get(sessionId);
+				let messageTxt = postback ? postback.payload.split(":")[1] : message.text;
 				// Run WIT Actions (Converse API)
-				wit.runActions(sessionId, message.text, context)
+				wit.runActions(sessionId, messageTxt, context)
 					.then(ctx => {
 						// Delete session if context is over
 						ctx.jobDone ? session.delete(sessionId) : session.update(sessionId, ctx);
@@ -78,6 +79,14 @@ agenda.on('ready', () => {
 	agenda.start();
 });
 
+// Persistent Menu
+f.showPersistent([
+	{
+		type: "postback",
+		title: "My Reminders",
+		payload: "menu:Show my reminders"
+	}
+]);
 
 // Subscribe
 f.subscribe();

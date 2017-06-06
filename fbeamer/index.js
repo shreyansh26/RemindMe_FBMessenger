@@ -138,6 +138,28 @@ class FBeamer {
 		});
 	}
 
+	// Show Persistent Menu
+	showPersistent(payload) {
+		let obj = {
+			setting_type: "call_to_actions",
+			thread_state: "existing_thread",
+			call_to_actions: payload
+		}
+
+		request({
+			uri: 'https://graph.facebook.com/v2.6/me/thread_settings',
+			qs: {
+				access_token: this.PAGE_ACCESS_TOKEN
+			},
+			method: 'POST',
+			json: obj
+		}, (error, response) => {
+			if(error) {
+				console.log(error);
+			}
+		});
+	}
+
 	// Send a text message
 	txt(id, text) {
 		let obj = {
