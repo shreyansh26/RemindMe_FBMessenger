@@ -17,7 +17,7 @@ module.exports = (session, f, agenda) => {
           let buttons = quickreplies.map(title => {
             return {
               title,
-              content_type: "text"
+              content_type: "text",
               payload: "null"
             }
           });
@@ -26,7 +26,7 @@ module.exports = (session, f, agenda) => {
             text,
             buttons
           });
-          
+
         } else {
           f.txt(fbid, text);
         }
