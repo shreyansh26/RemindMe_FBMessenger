@@ -57,7 +57,7 @@ agenda.on('ready', () => {
 				});
 			}
 
-			if((message && message.text) || (postback.payload.includes("menu"))) {
+			if((message && message.text) || (postback && postback.payload.includes("menu"))) {
 				// Process the message here
 				let sessionId = session.init(sender);
 				let {context} = session.get(sessionId);
