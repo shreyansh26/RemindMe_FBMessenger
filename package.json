@@ -8,7 +8,7 @@
   "author": "shreyansh26",
   "license": "ISC",
   "engines": {
-    "node": "7.10.0"
+    "node": "7.10.1"
   },
   "dependencies": {
     "agenda": "0.8.1",
